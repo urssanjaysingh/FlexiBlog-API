@@ -25,10 +25,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/avatars', express.static('avatars'))
 
 app.use('/', require('./routes/root'));
 app.use('/auth', require('./routes/authRoutes'));
 app.use('/user', require('./routes/userRoutes'));
+app.use('/avatar', require('./routes/avatarRoutes'));
 
 app.all('*', (req, res) => {
     res.status(404);

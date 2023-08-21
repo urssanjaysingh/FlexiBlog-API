@@ -11,6 +11,6 @@ router.use(verifyJWT);
 router.get('/profile', userController.getUser);
 
 // Update user profile
-router.put('/update-profile', userController.updateProfile);
+router.patch('/update', userController.updateProfile);
 
 module.exports = router;
