@@ -65,8 +65,8 @@ authController.login = async (req, res) => {
                 maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
             })
 
-            // Send accessToken containing username and roles 
-            res.json({ accessToken })
+            // Send accessToken and userId
+            res.json({ accessToken, userId: user._id });
         } else {
             res.status(401).json({ message: 'Unauthorized' });
         }
