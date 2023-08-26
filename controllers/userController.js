@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const upload = require('../middleware/multerConfig');
+const path = require('path'); // Import the 'path' module
 
 const userController = {};
 
@@ -16,9 +18,10 @@ userController.getUser = async (req, res) => {
       id: user._id,
       username: user.username,
       email: user.email,
-      name: user.profile.name,
-      bio: user.profile.bio,
-      avatar: user.profile.avatar
+      profile: user.profile,
+      // name: user.profile.name,
+      // bio: user.profile.bio,
+      // avatar: user.profile.avatar
     };
 
     return res.json(userProfile);
@@ -27,10 +30,10 @@ userController.getUser = async (req, res) => {
   }
 };
 
+// Update user profile
 userController.updateProfile = async (req, res) => {
   try {
     const userId = req.user.id; // Get the logged-in user's ID from the authentication middleware
-    
     const { name, bio, avatar } = req.body;
 
     // Find the user by userId
@@ -43,7 +46,13 @@ userController.updateProfile = async (req, res) => {
     // Update the user's profile information
     user.profile.name = name;
     user.profile.bio = bio;
-    user.profile.avatar = avatar;
+
+    // Check if a new avatar file was uploaded
+    if (req.file) {
+      const avatarPath = upload.generateRelativePath(req.file.filename);
+      user.profile.avatar = req.file.filename;
+    }
+
     await user.save();
 
     res.status(200).json({ success: true, message: 'Profile updated successfully', user });

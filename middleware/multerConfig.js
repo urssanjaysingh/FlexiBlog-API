@@ -20,4 +20,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Function to generate relative path from uploaded avatar file
+upload.generateRelativePath = (filename) => {
+    return '/avatars/' + filename; // Adjust the path as needed
+};
+
 module.exports = upload;

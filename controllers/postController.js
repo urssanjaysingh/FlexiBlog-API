@@ -31,7 +31,7 @@ exports.createPost = async (req, res) => {
 exports.getAllPosts = async (req, res) => {
     try {
         const posts = await Post.find()
-            .populate('author', 'profile') // Populate the author field with 'username'
+            .populate('author', 'profile')
             .exec();
 
         return res.status(200).json(posts);
