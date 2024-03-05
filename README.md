@@ -35,3 +35,4 @@ Experience the live FlexiBlog API by following the link below:
 Click the button above to access the live API and explore its capabilities. 
 
 For bloggers and developers alike, the FlexiBlog API opens up opportunities for creating, managing, and sharing captivating content.
+:)
